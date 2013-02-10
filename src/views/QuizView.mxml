@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		title="Start Quiz"
+		viewActivate="init()">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.tocha.ApplicationFacade;
+			import mx.core.FlexGlobals;
+			import com.tocha.controller.QuizCommand;
+			
+			public var facade:ApplicationFacade = ApplicationFacade.getInstance();
+			public function init():void{
+				trace("QuizView says hi");
+			}
+			
+			public function submit_quiz():void{
+				
+				var form_data:Object = {"username":data.username,"answer1":answer1.text, "answer2": answer2.value, "answer3": answer3.text};
+				facade.sendNotification(QuizCommand.SUBMIT,form_data);
+			}
+		]]>
+	</fx:Script>
+	
+	<s:navigationContent>
+		<s:Button label="Back" click="navigator.popView();"/>
+	</s:navigationContent>
+	<s:layout>
+		<s:VerticalLayout paddingTop="20" paddingLeft="10" paddingRight="10" horizontalAlign="center"/>
+	</s:layout>
+	
+	<s:VGroup width="261" height="29" horizontalAlign="left" verticalAlign="middle">
+		<s:Label text="Welcome {data.username}"/>
+		<s:Line width="100%">
+			<s:stroke>
+				<s:SolidColorStroke color="#999999" weight="1" caps="square"/>
+			</s:stroke>
+		</s:Line>
+	</s:VGroup>
+	<s:Spacer width="246" height="17"/>
+	
+	<s:Scroller width="259" height="320">
+		<s:VGroup width="100%" height="100%" horizontalAlign="center">
+			
+			<s:Label x="12" y="10" width="235" height="53"
+						 text="Q1. Which english letter is used for representing imaginary numbers?"/>
+			<s:HGroup x="12" width="236" height="44">
+				<s:TextInput id="answer1" width="47" skinClass="spark.skins.mobile.TextInputSkin"/>
+			</s:HGroup>
+			
+			<s:Line width="100%">
+				<s:stroke>
+					<s:SolidColorStroke color="#EEEEEE" weight="1" caps="square"/>
+				</s:stroke>
+			</s:Line>
+			<s:Spacer width="246" height="17"/>
+			<s:Label x="9" width="244" text="Q2. A single digit odd number that is a perfect square is"/>
+			<s:Spacer width="246" height="10"/>
+			<s:HGroup x="11" width="240" height="39">
+				<s:TextInput width="45" text="{answer2.value}" textAlign="center" editable="false" skinClass="spark.skins.mobile.TextInputSkin"/>
+				<s:HSlider id="answer2" width="186" height="32" liveDragging="true" maximum="10" minimum="0"
+						   stepSize="1" value="1"/>
+			</s:HGroup>
+			<s:Line width="100%">
+				<s:stroke>
+					<s:SolidColorStroke color="#EEEEEE" weight="1" caps="square"/>
+				</s:stroke>
+			</s:Line>
+			<s:Spacer width="246" height="18"/>
+			<s:Label x="10" width="240" height="27" text="Q3. What's factorial 5?"/>
+			<s:HGroup x="10" width="240" height="46">
+				<s:TextInput id="answer3" width="49" height="35" skinClass="spark.skins.mobile.TextInputSkin"/>
+			</s:HGroup>
+			
+		</s:VGroup>
+	</s:Scroller>
+	<s:Button x="70" width="119" label="Submit" click="submit_quiz()"/>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:View>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Tocha Quiz"
+	    viewActivate="init()">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.tocha.ApplicationFacade;
+			
+			import mx.core.FlexGlobals;
+			
+			public var facade:ApplicationFacade = ApplicationFacade.getInstance();
+			
+			
+			public function init():void {
+				trace("LoginView says hi");
+			}
+			
+			public function notify_with_data():void{
+				var form_data:Object = {"username":username.text, "password":password.text };
+				trace(form_data.username);
+				facade.sendNotification(ApplicationFacade.LOGIN,form_data);
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Scroller id="scroller" left="30" right="30" top="30" bottom="10">
+		<s:VGroup horizontalAlign="center">
+			<s:Label width="102" height="31" fontSize="30" text="Sign In"/>
+			<s:Spacer y="153" width="10" height="44"/>
+			<s:TextInput width="80%" id="username" prompt="Enter username .." text="apoorv" editable="false"/>
+			<s:TextInput width="80%" id="password" prompt="Enter password .." displayAsPassword="true" text="test" editable="false"/>
+			<s:Spacer x="36" y="232" width="188" height="28"/>
+			<s:Button id="log_in" x="74" y="271" width="112" height="32" label="Take Quiz" click="notify_with_data()"/>
+		</s:VGroup>
+	</s:Scroller>
+	
+</s:View>
